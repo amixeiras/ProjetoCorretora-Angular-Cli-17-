@@ -1,0 +1,21 @@
+<section class="details-card">
+  <header class="details-header">
+    <div>
+      <p class="eyebrow">Dados do cliente</p>
+      <h2>{{ client.name }}</h2>
+      <p>{{ client.email }} · {{ client.phone }}</p>
+    </div>
+    <button type="button" (click)="closed.emit()">Voltar para clientes</button>
+  </header>
+
+  <dl class="client-data">
+    <div><dt>ID</dt><dd>{{ client.id }}</dd></div>
+    <div><dt>CNPJ</dt><dd>{{ client.cnpj }}</dd></div>
+    <div><dt>Endereço</dt><dd>{{ client.address }}, {{ client.neighborhood }}</dd></div>
+    <div><dt>Localização</dt><dd>{{ client.city }} / {{ client.state }}</dd></div>
+    <div><dt>Seguro principal</dt><dd>{{ client.insurance }}</dd></div>
+    <div><dt>Status</dt><dd>{{ client.status }}</dd></div>
+  </dl>
+
+  <app-insured-management [clientId]="client.id" [broker]="broker" />
+</section>

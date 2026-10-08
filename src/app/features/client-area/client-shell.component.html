@@ -1,0 +1,32 @@
+﻿<div class="client-context" [style.--brand-primary]="broker.primaryColor" [style.--brand-secondary]="broker.secondaryColor">
+  <header class="client-header">
+    <a class="brand" [routerLink]="['/', brokerSlug]"><img [src]="broker.logoUrl" [alt]="broker.name" /><span><strong>{{ broker.name }}</strong><small>{{ broker.tagline }}</small></span></a>
+    <nav><a class="active" [routerLink]="['/', brokerSlug, 'cliente']">&#193;rea do cliente</a><a href="#">Simula&#231;&#245;es</a><a href="#">Administra&#231;&#227;o</a><a href="#contato">Contato</a></nav>
+    <div class="profile-menu">
+      <button class="profile" type="button" (click)="profileMenuOpen = !profileMenuOpen" [attr.aria-expanded]="profileMenuOpen">
+        <span class="avatar">JS</span><span><strong>{{ clientData.client.name }}</strong><small>{{ clientData.client.role }}</small></span><span>&#8964;</span>
+      </button>
+      @if (profileMenuOpen) {
+        <div class="profile-dropdown">
+          <button type="button" (click)="logout()">Sair</button>
+        </div>
+      }
+    </div>
+  </header>
+  <div class="client-body">
+    <aside class="sidebar" [class.open]="menuOpen">
+      <a [routerLink]="['/', brokerSlug, 'cliente', 'painel']" routerLinkActive="selected" (click)="menuOpen = false"><span>&#9673;</span>Painel</a>
+      <a [routerLink]="['/', brokerSlug, 'cliente', 'solicitacoes']" routerLinkActive="selected" (click)="menuOpen = false"><span>&#9632;</span>Solicita&#231;&#245;es</a>
+      <a [routerLink]="['/', brokerSlug, 'cliente', 'documentos']" routerLinkActive="selected" (click)="menuOpen = false"><span>&#9633;</span>Documentos</a>
+      <a [routerLink]="['/', brokerSlug, 'cliente', 'minha-conta']" routerLinkActive="selected" (click)="menuOpen = false"><span>&#9679;</span>Minha conta</a>
+    </aside>
+    <main class="workspace">
+      <section class="announcements">
+        <div class="announcement-heading"><h1>An&#250;ncios de seguros</h1><span>Ol&#225;, {{ clientData.client.name }}</span></div>
+        <h2>Destaques de seguros</h2>
+        <div class="announcement-grid"> @for (product of broker.products; track product.name) { <article><strong>{{ product.icon }}</strong><div><h3>{{ product.name }}</h3><p>{{ product.description }}</p><button>Conhecer</button></div></article> } </div>
+      </section>
+      <router-outlet />
+    </main>
+  </div>
+</div>

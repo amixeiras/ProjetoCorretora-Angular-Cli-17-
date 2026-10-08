@@ -1,0 +1,18 @@
+<div class="files-backdrop" role="presentation" (click)="close()">
+  <section class="files-popup" role="dialog" aria-modal="true" aria-labelledby="readonly-files-title" (click)="$event.stopPropagation()">
+    <header>
+      <div><p class="eyebrow">Arquivos do segurado</p><h2 id="readonly-files-title">Documentos cadastrados</h2></div>
+      <button type="button" class="close-popup" aria-label="Fechar arquivos" (click)="close()">×</button>
+    </header>
+    <div class="file-owner"><span>ID do segurado: {{ insuredId }}</span><strong>{{ insuredName }}</strong></div>
+    <p class="read-only-notice">Modo de visualização. Inclusão e exclusão de arquivos não estão disponíveis.</p>
+    <div class="file-table-wrap"><table><thead><tr><th>Arquivo</th><th>Tipo</th><th>Data de inclusão</th><th>Ação</th></tr></thead><tbody>
+      @for (file of visibleFiles; track file.id) {
+        <tr><td>{{ file.fileName }}</td><td>{{ file.fileType }}</td><td>{{ file.uploadedAt }}</td><td><button type="button" class="file-view">Visualizar</button></td></tr>
+      } @empty {
+        <tr><td class="empty-state" colspan="4">Nenhum arquivo cadastrado.</td></tr>
+      }
+    </tbody></table></div>
+    <footer class="file-pagination"><button type="button" (click)="setFilePage(filePage - 1)">‹</button><span>Página {{ filePage }} de {{ filePageCount }}</span><button type="button" (click)="setFilePage(filePage + 1)">›</button></footer>
+  </section>
+</div>

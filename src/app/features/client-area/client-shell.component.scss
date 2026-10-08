@@ -1,0 +1,73 @@
+:host { display: block; }
+.client-context { --ink: #18222d; background: #f1f4f7; color: var(--ink); min-height: 100vh; }
+.client-header { align-items: center; background: #fff; border-bottom: 1px solid #d9e0e5; display: flex; gap: 2rem; min-height: 68px; padding: 0 1.5rem; }
+.brand { align-items: center; color: var(--brand-secondary); display: flex; gap: .7rem; min-width: 220px; text-decoration: none; }.brand-mark { align-items: center; background: var(--brand-secondary); border-radius: 50% 50% 50% 8px; color: #fff; display: flex; font-size: .75rem; height: 2.2rem; justify-content: center; transform: rotate(45deg); width: 2.2rem; }.brand strong, .brand small { display: block; line-height: 1; text-transform: uppercase; }.brand strong { font-size: .95rem; letter-spacing: .04em; }.brand small { color: #31404b; font-size: .53rem; letter-spacing: .1em; margin-top: .28rem; }
+nav { align-self: stretch; display: flex; gap: 1.8rem; }nav a { align-items: center; color: #111; display: flex; font-size: .82rem; font-weight: 700; padding: 0 .15rem; text-decoration: none; text-transform: uppercase; }nav a.active { background: #edf4f9; border-bottom: 4px solid var(--brand-secondary); color: var(--brand-secondary); }
+.profile { align-items: center; background: transparent; border: 0; cursor: pointer; display: flex; gap: .65rem; margin-left: auto; text-align: left; }.profile strong, .profile small { display: block; }.profile strong { font-size: .8rem; }.profile small { font-size: .7rem; }.profile > span:last-child { margin-left: .5rem; }.avatar { align-items: center; background: #e7eef3; border-radius: 50%; color: var(--brand-secondary); display: flex; font-size: .7rem; font-weight: 800; height: 2rem; justify-content: center; width: 2rem; }
+.profile-menu { margin-left: auto; position: relative; }.profile-menu .profile { margin-left: 0; }.profile-dropdown { background: #fff; border: 1px solid #d9e0e5; border-radius: 5px; box-shadow: 0 8px 20px rgba(24, 34, 45, .14); min-width: 9rem; padding: .35rem; position: absolute; right: 0; top: calc(100% + .45rem); z-index: 10; }.profile-dropdown button { background: transparent; border: 0; border-radius: 3px; color: #18222d; cursor: pointer; font-size: .78rem; font-weight: 700; padding: .65rem .75rem; text-align: left; width: 100%; }.profile-dropdown button:hover { background: #edf4f9; color: var(--brand-secondary); }
+.client-body { display: flex; min-height: calc(100vh - 68px); }.sidebar { background: #fff; border-right: 1px solid #d9e0e5; flex: 0 0 220px; padding-top: .5rem; }.sidebar a { align-items: center; color: #111; display: flex; font-size: .78rem; font-weight: 700; gap: .8rem; padding: 1rem 1.25rem; text-decoration: none; text-transform: uppercase; }.sidebar a span { color: #6a7780; font-size: 1.1rem; width: 1.1rem; }.sidebar a.selected { background: #eaf2f8; border-left: 4px solid var(--brand-secondary); color: var(--brand-secondary); padding-left: calc(1.25rem - 4px); }.sidebar a.selected span { color: var(--brand-secondary); }.workspace { flex: 1; min-width: 0; }
+.announcements { padding: 1.7rem clamp(1rem, 7vw, 6.5rem) 0; }.announcement-heading { align-items: center; display: flex; justify-content: space-between; margin-bottom: 2rem; }.announcement-heading h1, .announcements h2, .announcement-grid h3 { font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; }.announcement-heading h1 { color: #18222d; font-size: clamp(2rem, 4vw, 3rem); line-height: .95; margin: 0; }.announcement-heading span { color: #64727c; font-size: .75rem; }.announcements > h2 { font-size: 1.15rem; margin: 0 0 .8rem; }.announcement-grid { display: grid; gap: .9rem; grid-template-columns: repeat(3, 1fr); }.announcement-grid article { align-items: center; background: #fff; border: 1px solid #dbe1e4; border-radius: 8px; box-shadow: 0 3px 8px rgba(31,55,70,.08); display: flex; gap: 1rem; min-height: 134px; padding: 1.1rem; }.announcement-grid article > strong { color: #0d4f79; font-size: 2.8rem; }.announcement-grid h3 { font-size: 1.3rem; margin: 0; }.announcement-grid p { font-size: .76rem; margin: .1rem 0 .5rem; }.announcement-grid button { background: #089447; border: 0; border-radius: 5px; color: #fff; cursor: pointer; font-size: .72rem; font-weight: 800; padding: .48rem .75rem; text-transform: uppercase; }
+@media (max-width: 800px) { .client-header { gap: .7rem; padding: 0 .8rem; }.brand { min-width: 0; }.client-header nav { display: none; }.sidebar { flex-basis: 190px; }.announcement-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .client-header { min-height: 60px; }.brand strong { font-size: .75rem; }.brand small { font-size: .42rem; }.profile strong, .profile small, .profile > span:last-child { display: none; }.client-body { position: relative; }.sidebar { box-shadow: 4px 0 12px rgba(25,55,75,.1); left: -205px; position: absolute; top: 0; transition: left .2s ease; z-index: 3; }.sidebar.open { left: 0; }.workspace { width: 100%; } }
+
+.brand img { display: block; flex: 0 0 auto; height: 2.35rem; object-fit: contain; width: 13rem; }
+
+.announcement-grid { display: flex; gap: .9rem; overflow-x: auto; padding: .1rem .2rem .8rem; scroll-snap-type: x proximity; scrollbar-color: #0d4f79 #dfe8ed; }.announcement-grid article { flex: 0 0 calc((100% - 1.8rem) / 3); scroll-snap-align: start; }.announcement-grid article > div { min-width: 0; }
+@media (max-width: 800px) { .announcement-grid article { flex-basis: calc((100% - .9rem) / 2); } }
+@media (max-width: 560px) { .announcement-grid article { flex-basis: 100%; } }
+
+.announcements {
+	padding: 2.25rem clamp(1.25rem, 4vw, 4.5rem) 0;
+}
+
+.announcement-heading {
+	margin-bottom: 2.25rem;
+}
+
+.announcement-heading h1 {
+	font-size: clamp(2.35rem, 4.5vw, 3.5rem);
+}
+
+.announcements > h2 {
+	font-size: 1.35rem;
+	margin-bottom: 1rem;
+}
+
+.announcement-grid {
+	gap: 1.2rem;
+	padding: .15rem .2rem 1rem;
+}
+
+.announcement-grid article {
+	flex-basis: calc((100% - 2.4rem) / 3);
+	gap: 1.25rem;
+	min-height: 176px;
+	padding: 1.5rem;
+}
+
+.announcement-grid article > strong {
+	font-size: 3.4rem;
+}
+
+.announcement-grid h3 {
+	font-size: 1.55rem;
+}
+
+.announcement-grid p {
+	font-size: .9rem;
+	line-height: 1.45;
+}
+
+.announcement-grid button {
+	font-size: .78rem;
+	padding: .62rem .9rem;
+}
+
+@media (max-width: 800px) {
+	.announcement-grid article { flex-basis: calc((100% - 1.2rem) / 2); }
+}
+
+@media (max-width: 560px) {
+	.announcements { padding: 1.5rem 1rem 0; }
+	.announcement-grid article { flex-basis: 100%; min-height: 150px; }
+}

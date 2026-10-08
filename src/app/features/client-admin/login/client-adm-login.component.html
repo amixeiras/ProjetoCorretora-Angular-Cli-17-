@@ -1,0 +1,9 @@
+<main class="login-page" [style.--brand-primary]="broker.primaryColor" [style.--brand-secondary]="broker.secondaryColor">
+  <form class="login-card" [formGroup]="form" (ngSubmit)="submit()">
+    <a class="brand" [routerLink]="['/', broker.slug]"><img [src]="broker.logoUrl" [alt]="broker.name" /><span><strong>{{ broker.name }}</strong><small>{{ broker.tagline }}</small></span></a>
+    <p class="eyebrow">Área administrativa</p><h1>Acesso administrativo</h1><p>Consulte os clientes cadastrados da {{ broker.name }}.</p>
+    <label>E-mail<input type="email" formControlName="email" /></label><label>Senha<input type="password" formControlName="password" /></label>
+    @if (invalidCredentials) { <small class="error">E-mail ou senha inválidos.</small> }
+    <button type="submit">Entrar</button><a class="back-link" [routerLink]="['/', broker.slug]">Voltar para {{ broker.name }}</a>
+  </form>
+</main>

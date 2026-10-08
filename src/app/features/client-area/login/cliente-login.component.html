@@ -1,0 +1,11 @@
+<main class="login-page">
+    <form class="login-card" [formGroup]="form" (ngSubmit)="submit()">
+        <p class="eyebrow">Área do cliente</p>
+        <h1>Acesso área cliente</h1>
+        <p>Gerencie seus dados e solicitações.</p><label>E-mail<input type="email"
+                formControlName="email" /></label><label>Senha<input type="password"
+                formControlName="password" /></label>@if (invalidCredentials) { <small class="error">E-mail ou senha
+            inválidos.</small> }<button type="submit">Entrar</button><small class="hint">Demo: joao.silva&#64;email.com /
+            123456</small>
+    </form>
+</main>

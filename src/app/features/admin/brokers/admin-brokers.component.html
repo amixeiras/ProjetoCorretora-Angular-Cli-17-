@@ -1,0 +1,63 @@
+<main class="admin-page">
+    <header>
+        <div>
+            <p class="eyebrow">Painel administrativo</p>
+            <h1>Corretoras</h1>
+        </div><button type="button" class="secondary" (click)="logout()">Sair</button>
+    </header>
+    @if (!formVisible) {
+    <section class="list-card">
+        <div class="list-heading">
+            <h2>Configurações cadastradas</h2><button type="button" (click)="newBroker()">+ Nova corretora</button>
+        </div>
+        <div class="broker-grid">@for (broker of brokers; track broker.slug) { <article><img [src]="broker.logoUrl"
+                    [alt]="broker.name" />
+                <h3>{{ broker.name }}</h3>
+                <p>{{ broker.slug }}</p><small>{{ broker.phone }} · {{ broker.email }}</small>
+                <div><button type="button" (click)="editBroker(broker)">Editar</button><button type="button"
+                        class="danger" (click)="remove(broker)">Excluir</button></div>
+            </article> }</div>
+    </section>
+    } @else {
+    <form class="editor-card" [formGroup]="form" (submit)="$event.preventDefault()">
+        <div class="form-heading">
+            <h2>{{ editingSlug ? 'Editar corretora' : 'Nova corretora' }}</h2><button type="button" class="secondary"
+                (click)="formVisible = false">Cancelar</button>
+        </div>
+        <div class="fields"><label>Slug<input formControlName="slug" /></label><label>Nome<input
+                    formControlName="name" /></label><label>Logo URL<input
+                    formControlName="logoUrl" /></label><label>Tagline<input
+                    formControlName="tagline" /></label><label>Telefone<input
+                    formControlName="phone" /></label><label>E-mail<input formControlName="email" /></label><label>Cor
+                primária<input type="color" formControlName="primaryColor" /></label><label>Cor secundária<input
+                    type="color" formControlName="secondaryColor" /></label><label class="wide">Headline<input
+                    formControlName="headline" /></label><label class="wide">Destaque da headline<input
+                    formControlName="headlineAccent" /></label><label class="wide">Texto introdutório<textarea
+                    formControlName="intro"></textarea></label></div>
+        <section class="products-editor">
+            <div class="products-heading">
+                <h2>Produtos e anúncios</h2><button type="button" (click)="addProduct()">+ Incluir produto</button>
+            </div>
+            @for (product of productDrafts; track productIndex; let productIndex = $index) {
+            <article class="product-editor">
+                <div class="product-line"><label>Ícone<select [disabled]="!isProductEditing(productIndex)"
+                            [(ngModel)]="product.iconId" [ngModelOptions]="{ standalone: true }"
+                            (ngModelChange)="updateIcon(productIndex, $event)">@for (icon of iconOptions; track icon.id)
+                            { <option [ngValue]="icon.id">{{ icon.symbol }} {{ icon.label }}</option>
+                            }</select></label><label>Nome do produto<input [readonly]="!isProductEditing(productIndex)"
+                            [value]="product.name" (input)="updateProduct(productIndex, 'name', $event)" /></label><span
+                        class="icon-preview" aria-label="Prévia do ícone">{{ iconPreview(product.iconId)
+                        }}</span><button type="button" class="edit-product" (click)="toggleProductEdit(productIndex)">{{
+                        isProductEditing(productIndex) ? 'Concluir' : 'Editar' }}</button><button type="button"
+                        class="danger" (click)="removeProduct(productIndex)">Excluir</button></div><label
+                    class="wide">Descrição<textarea [readonly]="!isProductEditing(productIndex)"
+                        [value]="product.description"
+                        (input)="updateProduct(productIndex, 'description', $event)"></textarea></label>
+            </article>
+            } @empty { <p class="empty">Nenhum produto incluído.</p> }
+        </section>
+        
+        @if (error) { <p class="error">{{ error }}</p> }<button type="button" (click)="save()">Salvar corretora</button>
+    </form>
+    }
+</main>

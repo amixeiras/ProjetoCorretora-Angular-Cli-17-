@@ -1,0 +1,12 @@
+﻿<section class="client-page">
+	<h1>Dados do cliente</h1>
+	<p>Confira os dados cadastrados para o seu acesso.</p>
+	<dl>
+		<div><dt>Nome</dt><dd>{{ client.name }}</dd></div>
+		<div><dt>Documento</dt><dd>{{ client.cnpj }}</dd></div>
+		<div><dt>E-mail</dt><dd>{{ client.email }}</dd></div>
+		<div><dt>Telefone</dt><dd>{{ client.phone }}</dd></div>
+		<div><dt>Endereço</dt><dd>{{ client.address }}, {{ client.neighborhood }}</dd></div>
+		<div><dt>Localização</dt><dd>{{ client.city }} / {{ client.state }}</dd></div>
+	</dl>
+</section>

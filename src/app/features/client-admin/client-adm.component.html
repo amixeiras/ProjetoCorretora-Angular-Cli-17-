@@ -1,0 +1,63 @@
+<section class="clients-page" [style.--brand-primary]="broker.primaryColor"
+  [style.--brand-secondary]="broker.secondaryColor">
+  <header class="client-header">
+    <a class="brand" [routerLink]="['/', broker.slug]"><img [src]="broker.logoUrl"
+        [alt]="broker.name" /><span><strong>{{ broker.name }}</strong><small>{{ broker.tagline }}</small></span></a>
+    <div class="header-actions"><span>Área administrativa</span><button type="button" (click)="logout()">Sair</button>
+    </div>
+  </header>
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">Módulo ADM · {{ broker.name }}</p>
+      <h1>Consulta de clientes</h1>
+    </div>
+    <span class="client-count">{{ filteredClients.length }} cliente(s)</span>
+  </header>
+
+  @if (!selectedClient) {
+  <section class="search-card">
+    <h2>Pesquisa de clientes</h2>
+    <div class="filters"><label>Pesquisar por nome/CNPJ<input [(ngModel)]="searchTerm"
+          placeholder="Digite nome, CNPJ, e-mail ou telefone" /></label><label>Status<select [(ngModel)]="statusFilter">
+          <option>Todos</option>
+          <option>Ativo</option>
+          <option>Pendente</option>
+          <option>Em análise</option>
+        </select></label></div>
+  </section>
+  <section class="list-card">
+    <div class="section-heading">
+      <h2>Clientes da corretora</h2><span>{{ filteredClients.length }} registro(s) · {{ broker.name }}</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID cliente</th>
+            <th>Foto / Nome</th>
+            <th>CNPJ</th><th>Contato</th><th>Seguro principal</th><th>Localização</th><th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (client of paginatedClients; track client.id) { <tr>
+            <td>{{ client.id }}</td>
+            <td><span class="client-name"><span class="avatar">{{ client.name.charAt(0) }}</span>{{ client.name
+                }}</span></td>
+            <td>{{ client.cnpj }}</td>
+            <td><small>{{ client.email }}</small><small>{{ client.phone }}</small></td>
+            <td>{{ client.insurance }}</td><td>{{ client.city }} / {{ client.state }}</td>
+            <td><span class="status" [class.pending]="client.status !== 'Ativo'">{{ client.status }}</span></td>
+            <td><button class="detail-button" type="button" (click)="viewDetails(client.id)">Ver Detalhes</button></td>
+          </tr> } @empty { <tr>
+            <td class="empty" colspan="8">Nenhum cliente encontrado.</td>
+          </tr> }
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination"><button type="button" (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1">&#8249;</button><span>Página {{ currentPage }} de {{ pageCount }}</span><button type="button" (click)="setPage(currentPage + 1)" [disabled]="currentPage === pageCount">&#8250;</button><label>Itens por página<select [value]="pageSize" (change)="setPageSize(+$any($event.target).value)">@for (size of pageSizeOptions; track size) { <option [value]="size">{{ size }}</option> }</select></label></div>
+  </section>
+  }
+  @if (selectedClient) { <app-client-details [client]="selectedClient" [broker]="broker" (closed)="closeDetails()" />
+  }
+</section>

@@ -1,0 +1,20 @@
+@if (notifications.notification(); as notification) {
+  <div class="alert-backdrop" role="presentation" (click)="notifications.close()">
+    <section
+      class="alert-popup"
+      [class.success]="notification.type === 'success'"
+      [class.error]="notification.type === 'error'"
+      [class.alert]="notification.type === 'alert'"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="global-alert-title"
+      (click)="$event.stopPropagation()">
+      <div class="alert-icon" aria-hidden="true">{{ notification.type === 'success' ? '&#10003;' : '!' }}</div>
+      <div class="alert-content">
+        <h2 id="global-alert-title">{{ notification.type === 'success' ? 'Sucesso' : notification.type === 'error' ? 'Erro' : 'Atenção' }}</h2>
+        <p>{{ notification.message }}</p>
+      </div>
+      <button type="button" (click)="notifications.confirm()">Confirmar</button>
+    </section>
+  </div>
+}
